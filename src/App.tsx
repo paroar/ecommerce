@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar";
 import ProductList from "./components/ProductList";
 import Details from "./components/Details";
 import Default from "./components/Default";
-import { Cart } from "./components/Cart";
+import Cart from "./components/Cart";
 
 function App() {
   return (
@@ -13,10 +13,10 @@ function App() {
       <Navbar />
 
       <Switch>
-        <Route path="/" component={ProductList}/>
-        <Route path="/details" component={Details}/>
-        <Route path="/store" component={Cart}/>
-        <Route component={Default}/>
+        <Route exact path="/" component={ProductList} />
+        <Route exact path="/details" component={Details} />
+        <Route exact path="/cart" component={Cart} />
+        <Route component={Default} />
       </Switch>
     </>
   );
