@@ -2,7 +2,7 @@ import React from "react";
 
 type TitleProps = {
   name: string;
-  title: string;
+  title?: string;
 };
 
 const Title: React.FC<TitleProps> = ({ name, title }) => {

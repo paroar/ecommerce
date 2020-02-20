@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { storeProducts, detailProduct } from "../data/data";
+import Cart from "../components/Cart";
 
 type ProductProps = {
   id: number;
@@ -16,8 +17,8 @@ type ProductProps = {
 const ProductContext = React.createContext({
   products: [] as ProductProps[],
   detailProduct: {} as ProductProps,
-  handleDetail: () => {},
-  addToCart: () => {}
+  handleDetail: (id: number) => {},
+  addToCart: (id: number) => {}
 });
 
 //Provider
@@ -25,16 +26,43 @@ const ProductContext = React.createContext({
 
 class ProductProvider extends Component {
   state = {
-    products: storeProducts,
-    detailProduct: detailProduct
+    products: [] as ProductProps[],
+    detailProduct: detailProduct,
+    cart: [] as ProductProps[]
   };
 
-  handleDetail = () => {
+  componentDidMount() {
+    this.setProducts();
+  }
+
+  setProducts = () => {
+    let tempProducts: ProductProps[] = [];
+    storeProducts.forEach(p => {
+      const singleItem = { ...p };
+      tempProducts = [...tempProducts, singleItem];
+    });
+    this.setState(() => {
+      return { products: tempProducts };
+    });
+  };
+
+  handleDetail = (id:number) => {
     console.log("hello from detail");
+    const product = this.getItem(id);
+    this.setState({detailProduct: product});
   };
 
-  addToCart = () => {
-    console.log("hello from add to cart");
+  getItem = (id:number) => {
+    const item = this.state.products.find(c => (
+      c.id === id
+    ));
+    return item;
+  }
+
+  addToCart = (id: number) => {
+    let tempProducts = [...this.state.products];
+    const item = this.getItem(id);
+    //TODO
   };
 
   render() {
