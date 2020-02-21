@@ -57,17 +57,20 @@ export class Product extends Component<ProductProps> {
     return (
       <ProductConsumer>
         {value => {
-          const { addToCart, handleDetail } = value;
+          const { addToCart, handleDetail, openModal } = value;
 
           return (
-            <StyledProduct onClick={()=> handleDetail(id)}>
+            <StyledProduct onClick={() => handleDetail(id)}>
               <Link to="/details">
                 <img className="img" src={img} alt="" />
               </Link>
               <BtnProduct
                 disabled={inCart ? true : false}
                 className="btn"
-                onClick={() => addToCart(id)}
+                onClick={() => {
+                  addToCart(id);
+                  openModal(id);
+                }}
               >
                 {inCart ? "in Cart" : <GiShoppingCart />}
               </BtnProduct>

@@ -1,11 +1,23 @@
 import React, { Component } from 'react'
+import { ProductConsumer } from '../context/productContext'
+import Columns from './Columns';
 
 export class Cart extends Component {
     render() {
         return (
-            <div>
-                Cart
-            </div>
+            <ProductConsumer>
+
+                {value=>{
+                    const {cart} = value;
+                    return (
+                        
+                        <Columns cart={cart}/>
+                    )
+                }}
+
+            </ProductConsumer>
+
+
         )
     }
 }
